@@ -16,11 +16,11 @@
 
 //Display//
 
-#define DIGIT1 PORTC.2
-#define DIGIT2 PORTC.3 
-#define DIGIT3 PORTC.4
-#define DIGIT4 PORTC.5
 
+#define DIGIT1 2<<PC3
+#define DIGIT2 3<<PC3
+#define DIGIT3 4<<PC3
+#define DIGIT4 5<<PC3
 
 
 
