@@ -27,6 +27,8 @@ int main(void)
 			{
 				SEGA=A[i];
 				SEGB=B[i];			
+				SEGB |= DIGIT1;
+				SEGB |= DIGIT2;
 				milsecdelay(1000);
 			}
 		}
