@@ -10,9 +10,15 @@
 #include "pinconfig.h"
 #include "timerr.h"
 
-void Display2();
-void Display3();
-void Display4();
+void Display2(void);
+void Display3(void);
+void Display4(void);
+
+	long long A[]={0x60,0xD8,0xF0,0x64,0xB4,0x3C,0xE0,0xFC,0xE4,0xFC};
+	
+	long long B[]={0x00,0x02,0x02,0x02,0x02,0x02,0x00,0x02,0x02,0x00};
+		
+	int n=0;
 
 
 int main(void)
@@ -21,11 +27,9 @@ int main(void)
 	DDRC = 0XFF;  //{Initialize PORT B AND PORT C as Output }// 
 	DDRD = 0X00;  //{Initialize PORTD as Input}//;
 	
-	long long A[]={0x60,0xD8,0xF0,0x64,0xB4,0x3C,0xE0,0xFC,0xE4,0xFC};
-		
-	long long B[]={0x00,0x02,0x02,0x02,0x02,0x02,0x00,0x02,0x02,0x00};
+
 	
-	int n=0;
+	
 /*
 		while(1)
 		{
@@ -50,64 +54,65 @@ int main(void)
 			SEGB |=DIGIT3;
 			SEGB |=DIGIT4;
 			for(int i=0;i<3;i++)
-			{
-				SEGA=A[i];
-				SEGB=B[i];
-				SEGB |=DIGIT1; //Setting up the hour digit MSB
-				if(i==2)
 				{
-					n=1;
-				}
-				Display2(); 
+					SEGA=A[i];
+					SEGB=B[i];
+					SEGB |=DIGIT1; //Setting up the hour digit MSB
+					if(i==2)
+					{
+						n=1;
+					}
+					Display2(); 
 
-			}
-			
-			void Display2();
-			{
-				switch(n)
-				{
-					
-				case 0:
-						for(int j=0;j<11;j++)
-						{
-							SEGA=A[j];
-							SEGB=B[j];
-							SEGB |=DIGIT2;  //Setting up the hour digit LSB
-							Display3();
-						}
-				case 1:
-						for(int j=0;j<5;j++)
-						{
-							SEGA=A[j];
-							SEGB=B[j];
-							SEGB |=DIGIT2;  //Setting up the hour digit LSB
-							Display3();
-						}
 				}
-			}
-			
-			void Display3();
-			{
-				for(int k=0;k<7;k++)
-				{
-					SEGA=A[k];
-					SEGB=B[k];
-					SEGB |=DIGIT3;  //Setting up the minute digit MSB
-					Display4();
-				}
-			}
-			
-			void Display4();
-			{
-				for(int l=0;l<11;l++)
-				{
-					SEGA=A[l];
-					SEGB=B[l];
-					SEGB |=DIGIT4;  //Setting up the minute digit LSB
-					milsecdelay(1000);
-				}
-			}
 			
 	}
 	
+}
+
+void Display2(void)
+{
+	switch(n)
+	{
+		
+		case 0:
+		for(int j=0;j<11;j++)
+		{
+			SEGA=A[j];
+			SEGB=B[j];
+			SEGB |=DIGIT2;  //Setting up the hour digit LSB
+			Display3();
+		}
+		case 1:
+		for(int j=0;j<5;j++)
+		{
+			SEGA=A[j];
+			SEGB=B[j];
+			SEGB |=DIGIT2;  //Setting up the hour digit LSB
+			Display3();
+		}
+	}
+}
+
+
+void Display3(void)
+{
+	for(int k=0;k<7;k++)
+	{
+		SEGA=A[k];
+		SEGB=B[k];
+		SEGB |=DIGIT3;  //Setting up the minute digit MSB
+		Display4();
+	}
+}
+
+void Display4(void)
+{
+	for(int l=0;l<11;l++)
+	{
+		SEGA=A[l];
+		SEGB=B[l];
+		SEGB |=DIGIT4;  //Setting up the minute digit LSB
+		milsecdelay(1000);
+	}
 }
